@@ -1,3 +1,5 @@
+"use client";
+import { Button } from "@heroui/react";
 import React from "react";
 
 interface Accessory {
@@ -23,6 +25,11 @@ const page = async () => {
         {accessories.map((accessory) => (
           <div key={accessory.id} className="border rounded-lg p-4 shadow">
             <h2 className="text-lg font-semibold">{accessory.name || "No Name"}</h2>
+            <div className="flex justify-end">
+              <Button color="warning" variant="ghost">
+                Button
+              </Button>
+            </div>
           </div>
         ))}
       </div>
