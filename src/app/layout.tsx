@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import ThemeProvider from "@/components/providers/ThemeProvider";
+import SessionProvider from "@/components/providers/SessionProvider";
+import UserProfileProvider from "@/components/providers/UserProfileProvider";
 import HeroUIProviders from "@/components/providers/HeroUIProvider";
+import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 
 import "./globals.css";
+import ToastProvider from "@/components/providers/ToastProvider";
+import EngagespotContextProvider from "@/components/providers/EngagespotProvider";
 
 import { metadataConfig } from "./config";
 
@@ -52,9 +57,20 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <HeroUIProviders>
-          <ThemeProvider>{children}</ThemeProvider>
-        </HeroUIProviders>
+        <SessionProvider>
+          <UserProfileProvider>
+            <HeroUIProviders>
+              <ThemeProvider>
+                <ReactQueryProvider>
+                  <ToastProvider />
+                  <EngagespotContextProvider>
+                    {children}
+                  </EngagespotContextProvider>
+                </ReactQueryProvider>
+              </ThemeProvider>
+            </HeroUIProviders>
+          </UserProfileProvider>
+        </SessionProvider>
       </body>
     </html>
   );
